@@ -42,7 +42,7 @@ build_tf_wrapper() {
   g++ -std=c++11 -shared \
     -I../../src \
     -fPIC ${TF_CFLAGS[@]} -O2 \
-    -D_GLIBCXX_USE_CXX11_ABI=0 \
+    -D_GLIBCXX_USE_CXX11_ABI=1 \
     -Wl,--whole-archive \
     /usr/local/lib/libsentencepiece.a \
     -Wl,--no-whole-archive \
