@@ -17,8 +17,6 @@
 set -e  # exit immediately on error
 set -x  # display all commands
 
-CMAKE_VERSION=3.12.0
-
 run_docker() {
   cd `dirname $0`
   docker pull $1
@@ -61,9 +59,6 @@ build() {
   mkdir -p build
   cd build
 
-  apt-get update
-  apt-get install -y curl build-essential cmake git pkg-config python-pip python3-pip
-
   # Install sentencepiece
   cmake ../.. -DSPM_ENABLE_SHARED=OFF -DSPM_ENABLE_TENSORFLOW_SHARED=ON
   make -j4
@@ -83,5 +78,8 @@ build() {
 if [ "$1" = "native" ]; then
   build
 else
+  apt-get update
+  apt-get install -y curl build-essential cmake git pkg-config python-pip python3-pip
+
   run_docker tensorflow/tensorflow:latest
 fi
